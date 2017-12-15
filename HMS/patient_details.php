@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<?php include("func.php");?>
+
 <html>
 <head>
 	<title>Patient Details</title>
@@ -13,7 +13,7 @@
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-light">Patient</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staf</a>
+    <a href="admin-panel.php" class="btn btn-light">Staff</a>
     <span style="padding-left:6px;"></span>
     <a href="admin-panel.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
@@ -22,7 +22,7 @@
   </form>
 </nav>
 	<div class="jumbotron" style="background: url('Image/hims.jpg') no-repeat;background-size: cover; height: 300px"></div>
-	<nav class="navbar navbar-dark bg-faded">
+	<!--<nav class="navbar navbar-dark bg-faded">
   <form class="form-inline">
     <a href="admin-panel.php" class="btn btn-outline-primary">Add patient</a>
     <span style="padding-left:6px;"></span>
@@ -30,7 +30,8 @@
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-outline-primary">Patient list</a>
   </form>
-</nav>
+</nav>-->
+	<a href="admin-panel.php" class="btn btn-outline-info btn-lg btn-block" ><b><i>Add patient</i></b></a>
 	<div class= "card">
 		<div class="container-fluid">
 			<div class="card-body" style="background-color: #3498DB; color: #ffffff">
@@ -39,7 +40,7 @@
 				<a href="admin-panel.php" class = "btn btn-light">Go Back</a></div>-->
 				<div class="col-md-3"><h3>Patient Details</h3></div><hr>
 				<div class="col-md-8">
-					<form class = "form-group" action="patient_search.php" metod = "post">
+					<form class = "form-group" action="patient_search.php" method = "get">
 						<div class="row">
 							<span style="padding-left:230px;"></span>
 							<div class="col-md-6">
@@ -54,22 +55,68 @@
 		<table class="table table-hover">
   <thead>
     <tr>
-      <th scope="col">Patient ID</th>
-      <th scope="col">First Name</th>
-      <th scope="col">Last Name</th>
+      <th scope="col">PID</th>
+      <th scope="col">Name</th>
       <th scope="col">Age</th>
       <th scope="col">Weight</th>
       <th scope="col">Sex</th>
       <th scope="col">Address</th>
       <th scope="col">Contact</th>
       <th scope="col">Disease</th>
-      <th scope="col">Appointed Doctor</th>
+      <th scope="col">Doctor</th>
+      <th >Update</th>
+      <th >Delete</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <?php get_patient_details();?>
+    <?php 	
+    $mysqli =new mysqli("localhost","root","","hospital_msdb");
+    if($mysqli->connect_errno)
+    {
+    	echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
+    }
+    $query=$mysqli->query("SELECT * from book_app");
+    while ($row = $query->fetch_assoc())
+    {
+    	?>
+        <td><?php echo $row['pid'] ?></td>
+		<td><?php echo $row['fname'] ?>
+			<?php echo $row['lname'] ?></td>
+		<td><?php echo $row['age'] ?></td>
+		<td><?php echo $row['weight'] ?></td>
+		<td><?php echo $row['gender'] ?></td>
+		<td><?php echo $row['address'] ?></td>
+		<td><?php echo $row['phno'] ?></td>
+		<td><?php echo $row['disease'] ?></td>
+		<td><?php echo $row['docid'] ?></td>
+		<td>
+			<a onclick="return confirm('Are you sure')" href= "?pidd = <?php echo $row['pid']?>" class="btn btn-warning"> Update</a>
+		</td>
+		<td>
+			<a onclick="return confirm('Are you sure')" href= "?pidd = <?php echo $row['pid']?>" class="btn btn-danger"> Delete</a>
+		</td>
     </tr>
+    <?php }
+    	if(isset($_GET['pidd']))
+    	{
+    		echo "Sadat";
+    		$pidd = $_GET['pidd'];
+    		$result = $mysqli->query("DELETE FROM book_app
+            		WHERE pid = '$pidd'");
+    		//$result = mysqli_query($con,$query);
+
+    		if($result)
+    		{
+    			echo "Successful";
+    			//window.location.href = 'patient_details.php';
+    		}
+    		else
+    		{
+    			echo "Unsuccessful";
+    		}
+    	}
+    ?>
   </tbody>
 </table>
 </div>

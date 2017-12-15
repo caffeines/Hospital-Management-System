@@ -15,8 +15,11 @@ if(isset($_POST['login_submit']))
         echo "<script> window.open('loginError.php','_self') </script>;";
     }
 }
-if(isset($_POST['app_submit']))
+
+
+if(isset($_POST['update_data']))
 {
+    $id = $_POST['pid'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $age = $_POST['age'];
@@ -26,16 +29,19 @@ if(isset($_POST['app_submit']))
     $phno = $_POST['phno'];
     $dse = $_POST['dse'];
     $doc = 1;
-    $query = "insert into book_app(fname,lname,age,weight,gender,address,phno,disease,docid) values ('$fname','$lname','$age','$weight','$sex','$adrs','$phno','$dse','$doc')";
+    $query="UPDATE book_app
+            set fname = '$fname',lname = '$lname',age = '$age',weight = '$weight',gender = '$sex',address = '$adrs',phno = '$phno',disease = '$dse',docid = '$doc'
+            where pid = '$id')";
     $result = mysqli_query($con,$query);
     if($result)
     {
-        echo "<script> window.open('suc_app.php','_self') </script>;";
-        echo "<script> window.open('admin-panel.php','_self') </script>;";
+        echo "<script> alert('Ragistration sucessfull.') </script>";
+        echo "<script> window.open('update.php','_self') </script>;";
     }
     else
     {
         echo "<script> alert('Ragistration unsucessfull.') </script>";
+        echo "<script> window.open('update.php','_self') </script>;";
         
     }
 }
@@ -93,6 +99,7 @@ function get_patient_details()
         <td>$phno</td>
         <td>$dse</td>
         <td>$docid</td>
+        <htlm>
         </tr>";
     }
 }
@@ -117,33 +124,6 @@ function get_doctor_details()
         <td>$fee</td>
         <td>$time</td>
         </tr>";
-    }
-}
-function get_payslip()
-{
-    global $con;
-    $query = "SELECT pid,fname,lname,age,weight,gender,address,phno,disease, doc_name, fee, total,satus,date
-              from book_app b join doctor d
-              on d.docid = b.docid
-              join payment p on p.pid = b.pid
-              where pid = 1";
-    $result = mysqli_query($con,$query);
-    while ($row = mysqli_fetch_array($result))
-    {
-        $pid = $row['pid'];
-        $fname = $row['fname'];
-        $lname = $row['lname'];
-        $age = $row['age'];
-        $weight = $row['weight'];
-        $sex = $row['gender'];
-        $adrs = $row['address'];
-        $phno = $row['phno'];
-        $dse = $row['disease'];
-        $docid = $row['doc_name'];
-
-        echo "
-        Name : $sex
-        ";
     }
 }
 function display_docs()
