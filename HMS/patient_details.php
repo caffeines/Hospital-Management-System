@@ -91,25 +91,23 @@
 		<td><?php echo $row['disease'] ?></td>
 		<td><?php echo $row['docid'] ?></td>
 		<td>
-			<a onclick="return confirm('Are you sure')" href= "?pidd = <?php echo $row['pid']?>" class="btn btn-warning"> Update</a>
+			<a onclick="return confirm('Are you sure')" href= "update.php?edit=<?php echo $row['pid'];?>" class="btn btn-warning"> Update</a>
 		</td>
 		<td>
-			<a onclick="return confirm('Are you sure')" href= "?pidd = <?php echo $row['pid']?>" class="btn btn-danger"> Delete</a>
+			<a href= "patient_details.php?delete=<?php echo $row['pid'];?>" class="btn btn-danger"> Delete</a>
 		</td>
     </tr>
     <?php }
-    	if(isset($_GET['pidd']))
+    	if(isset($_GET['delete']) && !empty($_GET['delete']))
     	{
-    		echo "Sadat";
-    		$pidd = $_GET['pidd'];
+    		$delete_id = (int)$_GET['delete'];
     		$result = $mysqli->query("DELETE FROM book_app
-            		WHERE pid = '$pidd'");
-    		//$result = mysqli_query($con,$query);
+            		WHERE pid = '$delete_id'");
 
     		if($result)
     		{
     			echo "Successful";
-    			//window.location.href = 'patient_details.php';
+    			echo "<script> window.open('patient_details.php','_self') </script>;"; 
     		}
     		else
     		{

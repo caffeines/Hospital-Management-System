@@ -13,7 +13,7 @@
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-light">Patient</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staf</a>
+    <a href="admin-panel.php" class="btn btn-light">Staff</a>
     <span style="padding-left:6px;"></span>
     <a href="admin-panel.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
@@ -31,39 +31,30 @@
 				<a href="" class="list-group-item ">Patient</a>
 				<a href="patient_details.php" class="list-group-item ">Patient Details</a>
 				<a href="" class="list-group-item ">Add New Patient</a>
-				<a href="" class="list-group-item ">Payment</a>
 			</div>
 			<hr>
-			<div class="list-group">
-				<a href="" class="list-group-item active" style="background-color:#3399ff ;color:#ffffff;border-color:#3399ff;> Staff</a>
-				<a href="" class="list-group-item ">Staff</a>
-				<a href="" class="list-group-item ">Staff Details</a>
-				<a href="" class="list-group-item ">Add New Staff</a>
-				<a href="" class="list-group-item ">Remove Staff</a>
-			</div>
 			<div class="list-group">
 				<a href="" class="list-group-item active" style="background-color:#3399ff ;color:#ffffff;border-color:#3399ff;> doctor</a>
 				<a href="" class="list-group-item ">Doctor</a>
 				<a href="doctor_details.php" class="list-group-item ">Doctor Details</a>
 				<a href="add_doctor.php" class="list-group-item ">Add New Doctor</a>
-				<a href="" class="list-group-item ">Remove Doctor</a>
 			</div>
 		</div>
 		<div class="col-md-8">
 			<div class="card">
-				<div class="card-body" style="background-color:#3399ff ;color:#ffffff;">
-					Book An Appoinment
+				<div class="card-body" style="background-color:#3399ff ;color:#ffffff;"><h4>
+					Book An Appoinment</h4>
 				</div>
 				<div class="card-body">
 					<form class="form-group", action="func.php" method = "post">
 						<label>First Name</label>
-						<input type="text" name="fname" placeholder="* Enter first name" class="form-control"><br>
+						<input type="text" name="fname" placeholder="* Enter first name" class="form-control" required><br>
 						<label>Last Name</label>
-						<input type="text" name="lname" placeholder="* Enter last name" class="form-control"><br>
+						<input type="text" name="lname" placeholder="* Enter last name" class="form-control" required ><br>
 						<label>Age</label>
-						<input type="number" name="age" placeholder="* Enter age" class="form-control"><br>
+						<input type="number" name="age" placeholder="* Enter age" class="form-control" required><br>
 						<label>Weight</label>
-						<input type="number" name="weight" placeholder="* Enter weight" class="form-control"><br>
+						<input type="number" name="weight" placeholder="* Enter weight" class="form-control" required><br>
 						<label>Sex</label>
 						<select name="sex" class="form-control">
 							<option value = Male >Male</option>
@@ -72,11 +63,11 @@
 						</select> <br>
 						<!--<input type="text" name="sex" placeholder="* Enter patient's sex" class="form-control"><br>-->
 						<label>Address</label>
-						<input type="text" name="adrs" placeholder="* Enter patient address" class="form-control"><br>
+						<input type="text" name="adrs" placeholder="* Enter patient address" class="form-control" required><br>
 						<label>Phone NO</label>
-						<input type="text" name="phno" placeholder="* Enter phone number" class="form-control"><br>
+						<input type="text" name="phno" placeholder="* Enter phone number" class="form-control" required><br>
 						<label>Disease</label>
-						<input type="text" name="dse" placeholder=" Enter disease" class="form-control"><br>
+						<input type="text" name="dse" placeholder=" Enter disease" class="form-control" required><br>
 						<label>Doctor Appoinment</label>
 						<select name="doctor" class="form-control">
 							<!--<option value = 1 >Dr Jinnu Rain Siam from 6pm to 8 pm</option>

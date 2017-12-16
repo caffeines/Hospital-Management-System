@@ -14,7 +14,7 @@
     <span style="padding-left:6px;"></span>
     <a href="admin-panel.php" class="btn btn-light">Staf</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Doctor</a>
+    <a href="doctor_details.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>
@@ -30,22 +30,13 @@
 				<a href="" class="list-group-item ">Patient</a>
 				<a href="patient_details.php" class="list-group-item ">Patient Details</a>
 				<a href="" class="list-group-item ">Add New Patient</a>
-				<a href="" class="list-group-item ">Payment</a>
 			</div>
 			<hr>
-			<div class="list-group">
-				<a href="" class="list-group-item active" style="background-color:#3399ff ;color:#ffffff;border-color:#3399ff;> Staff</a>
-				<a href="" class="list-group-item ">Staff</a>
-				<a href="" class="list-group-item ">Staff Details</a>
-				<a href="" class="list-group-item ">Add New Staff</a>
-				<a href="" class="list-group-item ">Remove Staff</a>
-			</div>
 			<div class="list-group">
 				<a href="" class="list-group-item active" style="background-color:#3399ff ;color:#ffffff;border-color:#3399ff;> doctor</a>
 				<a href="" class="list-group-item ">Doctor</a>
 				<a href="doctor_details.php" class="list-group-item ">Doctor Details</a>
 				<a href="add_doctor.php" class="list-group-item ">Add New Doctor</a>
-				<a href="" class="list-group-item ">Remove Doctor</a>
 			</div>
 		</div>
 		<div class="col-md-8">
@@ -56,14 +47,14 @@
 				<div class="card-body">
 					<form class="form-group", action="func.php" method = "post">
 						<label>Name</label>
-						<input type="text" name="name" placeholder="* Enter name" class="form-control"><br>
+						<input type="text" name="name" placeholder="* Enter name" class="form-control" required><br>
 						<label>Specialized</label>
-						<input type="text" name="dept" placeholder="* Enter Area of Specialization" class="form-control"><br>
+						<input type="text" name="dept" placeholder="* Enter Area of Specialization" class="form-control" required><br>
 						<label>Fee</label>
-						<input type="number" name="fee" placeholder="* Enter fee" class="form-control"><br>
-						<label>Time</label>
-						<input type="text" name="time" placeholder="* Enter time" class="form-control"><br>
-						<button type="submit" name = "add_doc" class="btn btn-outline-primary">Add Anyway</button>
+						<input type="number" name="fee" placeholder="* Enter fee" class="form-control" required><br>
+						<label>Schedule</label>
+						<input type="text" name="time" placeholder="* Enter schedule" class="form-control" required><br>
+						<button type="submit" name = "add_doc" class="btn btn-outline-primary">Add Doctor</button>
 					</form>
 				</div>
 			</div>

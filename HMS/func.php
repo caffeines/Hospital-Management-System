@@ -8,18 +8,15 @@ if(isset($_POST['login_submit']))
     $result = mysqli_query($con, $query);
     if(mysqli_num_rows($result)==1)
     {
-        header("Location:admin-panel.php");
+        header("Location:patient_details.php");
     }
     else 
     {
         echo "<script> window.open('loginError.php','_self') </script>;";
     }
 }
-
-
-if(isset($_POST['update_data']))
+if(isset($_POST['app_submit']))
 {
-    $id = $_POST['pid'];
     $fname = $_POST['fname'];
     $lname = $_POST['lname'];
     $age = $_POST['age'];
@@ -28,23 +25,75 @@ if(isset($_POST['update_data']))
     $adrs = $_POST['adrs'];
     $phno = $_POST['phno'];
     $dse = $_POST['dse'];
-    $doc = 1;
-    $query="UPDATE book_app
-            set fname = '$fname',lname = '$lname',age = '$age',weight = '$weight',gender = '$sex',address = '$adrs',phno = '$phno',disease = '$dse',docid = '$doc'
-            where pid = '$id')";
+    $doc = $_POST['doctor'];
+    $query = "insert into book_app(fname,lname,age,weight,gender,address,phno,disease,docid) values ('$fname','$lname','$age','$weight','$sex','$adrs','$phno','$dse','$doc')";
     $result = mysqli_query($con,$query);
     if($result)
     {
-        echo "<script> alert('Ragistration sucessfull.') </script>";
-        echo "<script> window.open('update.php','_self') </script>;";
+        echo "<script>alert('Appointment sucessfully added.') </script>;";
+        echo "<script> window.open('patient_details.php','_self') </script>;";
     }
     else
     {
-        echo "<script> alert('Ragistration unsucessfull.') </script>";
-        echo "<script> window.open('update.php','_self') </script>;";
+        echo "<script> alert('Appointment addition unsucessfull.') </script>";
         
     }
 }
+
+
+if(isset($_POST['update_data']))
+{
+    $id = (int)$_POST['pid'];
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $age = $_POST['age'];
+    $weight = $_POST['weight'];
+    $sex = $_POST['sex'];
+    $adrs = $_POST['adrs'];
+    $phno = $_POST['phno'];
+    $dse = $_POST['dse'];
+    $doc = $_POST['doctor'];
+
+
+    $query = "UPDATE book_app SET fname='$fname', lname='$lname', age='$age', weight='$weight', gender='$sex', address='$adrs', phno='$phno', disease='$dse' WHERE pid = '$id'";
+    $result = mysqli_query($con, $query);
+    
+    if($result)
+    {
+        echo "<script> alert('Update sucessfull.') </script>";
+        echo "<script> window.open('patient_details.php','_self') </script>;";
+    }
+    else
+    {
+        echo "<script> alert('Update unsucessfull.') </script>";
+        echo "<script> window.open('patient_details.php','_self') </script>;";
+        
+    }
+}
+
+if(isset($_POST['update_doc']))
+{
+    $id = (int)$_POST['docid'];
+    $name = $_POST['name'];
+    $fee = (int)$_POST['fee'];
+    $dept = $_POST['dept'];
+    $time = $_POST['time'];
+    $query = "UPDATE doctor SET doc_name='$name', dept='$dept',fee='$fee', start='$time' WHERE docid = '$id' ";
+    $result = mysqli_query($con, $query);
+    
+    if($result)
+    {
+        echo "<script> alert('Update sucessfull.') </script>";
+        echo "<script> window.open('doctor_details.php','_self') </script>;";
+    }
+    else
+    {
+        echo "<script> alert('Update unsucessfull.') </script>";
+        echo "<script> window.open('doctor_details.php','_self') </script>;";
+        
+    }
+}
+
 if (isset($_POST['succ-app']))
 {
     header("Location:admin-panel.php");
@@ -59,50 +108,11 @@ if(isset($_POST['add_doc']))
     $result = mysqli_query($con,$query);
     if($result)
     {
-        echo "<script> window.open('suc_app.php','_self') </script>;";
+
         echo "<script> window.open('add_doctor.php','_self') </script>;";
-    }
-    else
-    {
-        echo "<script> alert('Ragistration unsucessfull.') </script>";
-        echo "<script> window.open('admin-panel.php','_self') </script>;";
     }
 }    
 
-function get_patient_details()
-{
-    global $con;
-    $query = "SELECT * 
-              from book_app";
-    $result = mysqli_query($con,$query);
-    while ($row = mysqli_fetch_array($result))
-    {
-        $pid = $row['pid'];
-        $fname = $row['fname'];
-        $lname = $row['lname'];
-        $age = $row['age'];
-        $weight = $row['weight'];
-        $sex = $row['gender'];
-        $adrs = $row['address'];
-        $phno = $row['phno'];
-        $dse = $row['disease'];
-        $docid = $row['docid'];
-
-        echo "<tr>
-        <td>$pid</td>
-        <td>$fname</td>
-        <td>$lname</td>
-        <td>$age</td>
-        <td>$weight</td>
-        <td>$sex</td>
-        <td>$adrs</td>
-        <td>$phno</td>
-        <td>$dse</td>
-        <td>$docid</td>
-        <htlm>
-        </tr>";
-    }
-}
 function get_doctor_details()
 {
     global $con;
@@ -129,13 +139,11 @@ function get_doctor_details()
 function display_docs()
 {
     global $con;
-    $quer = "SELECT * from doctor";
+    $query = "SELECT * from doctor";
     $result = mysqli_query($con,$query);
     while ($row = mysqli_fetch_array($result))
     {
-        $name = $row['doc_name'];
-		$docid = $row['docid'];
-        echo '<option value="'.$docid.'">'.$name.'</option>';
+        echo '<option value="'.$row['docid'].'">'.$row['doc_name'].'</option>';
     }
 }
 ?>

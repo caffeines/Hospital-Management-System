@@ -22,15 +22,8 @@
   </form>
 </nav>
 	<div class="jumbotron" style="background: url('Image/hims.jpg') no-repeat;background-size: cover; height: 300px"></div>
-  <nav class="navbar navbar-dark bg-faded">
-  <form class="form-inline">
-    <a href="add_doctor.php" class="btn btn-outline-primary">Add Doctor</a>
-    <span style="padding-left:6px;"></span>
-    <a href="" class="btn btn-outline-primary">Remove Doctor</a>
-    <span style="padding-left:6px;"></span>
-    <a href="doctor_details.php" class="btn btn-outline-primary">Doctor Details</a>
-  </form>
-</nav>
+<hr>
+<a href="add_doctor.php" class="btn btn-outline-info btn-lg btn-block" ><b><i>Add Doctor</i></b></a>
 	<div class= "card">
 		<div class="container-fluid">
 			<div class="card-body" style="background-color: #3498DB; color: #ffffff">
@@ -58,11 +51,52 @@
       <th scope="col">Area of Specialization</th>
       <th scope="col">Fee</th>
       <th scope="col">Schedule</th>
+      <th scope="col">Update</th>
+      <th scope="col">Delete</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <?php get_doctor_details();?>
+      <?php   
+    $mysqli =new mysqli("localhost","root","","hospital_msdb");
+    if($mysqli->connect_errno)
+    {
+      echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
+    }
+    $query=$mysqli->query("SELECT * from doctor");
+    while ($row = $query->fetch_assoc())
+    {
+      ?>
+        <td><?php echo $row['docid'] ?></td>
+      <td><?php echo $row['doc_name'] ?></td>
+      <td><?php echo $row['dept'] ?></td>
+      <td><?php echo $row['fee'] ?></td>
+      <td><?php echo $row['start'] ?></td>
+      <td>
+      <a onclick="return confirm('Are you sure')" href= "update_doc.php?edit_doc=<?php echo $row['docid'];?>" class="btn btn-warning"> Update</a>
+    </td>
+    <td>
+      <a href= "doctor_details.php?delete_doc=<?php echo $row['docid'];?>" class="btn btn-danger"> Delete</a>
+    </td>
+    </tr>
+    <?php }
+      if(isset($_GET['delete_doc']) && !empty($_GET['delete_doc']))
+      {
+        $d_id = (int)$_GET['delete_doc'];
+        $result = $mysqli->query("DELETE FROM doctor
+                WHERE docid = '$d_id'");
+
+        if($result)
+        {
+          echo "<script> alert('Delete sucessfull.') </script>";
+          echo "<script> window.open('doctor_details.php','_self') </script>;"; 
+        }
+        else
+        {
+          echo "Unsuccessful";
+        }
+      }
+    ?>
     </tr>
   </tbody>
 </table>

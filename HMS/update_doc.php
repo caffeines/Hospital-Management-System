@@ -31,22 +31,13 @@
 				<a href="" class="list-group-item ">Patient</a>
 				<a href="patient_details.php" class="list-group-item ">Patient Details</a>
 				<a href="" class="list-group-item ">Add New Patient</a>
-				<a href="" class="list-group-item ">Payment</a>
 			</div>
 			<hr>
-			<div class="list-group">
-				<a href="" class="list-group-item active" style="background-color:#3399ff ;color:#ffffff;border-color:#3399ff;> Staff</a>
-				<a href="" class="list-group-item ">Staff</a>
-				<a href="" class="list-group-item ">Staff Details</a>
-				<a href="" class="list-group-item ">Add New Staff</a>
-				<a href="" class="list-group-item ">Remove Staff</a>
-			</div>
 			<div class="list-group">
 				<a href="" class="list-group-item active" style="background-color:#3399ff ;color:#ffffff;border-color:#3399ff;> doctor</a>
 				<a href="" class="list-group-item ">Doctor</a>
 				<a href="doctor_details.php" class="list-group-item ">Doctor Details</a>
 				<a href="add_doctor.php" class="list-group-item ">Add New Doctor</a>
-				<a href="" class="list-group-item ">Remove Doctor</a>
 			</div>
 		</div> 
 		<div class="col-md-8">
@@ -56,46 +47,29 @@
 				</div>
 				<div class="card-body">
 					<?php
-						if(isset($_GET['edit'])){
-							$id = (int)$_GET['edit']; 	
+						if(isset($_GET['edit_doc'])){
+							$id = (int)$_GET['edit_doc']; 	
 					    	$mysqli =new mysqli("localhost","root","","hospital_msdb");
 						    if($mysqli->connect_errno)
 						    {
 						    	echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
 						    }
-						    $query=$mysqli->query("SELECT * from book_app where pid = '$id'");
+						    $query=$mysqli->query("SELECT * from doctor where docid = '$id'");
 						    $row = $query->fetch_assoc();
 						}
 			    	?>
 					<form class="form-group", action="func.php" method = "POST">
-						<label>Patient ID</label>
-						<input type="text" name="pid" class="form-control" value = "<?php echo $row['pid']?>" readonly><br>
-						<label>First Name</label>
-						<input type="text" name="fname" class="form-control" value = "<?php echo $row['fname']?>"><br>
-						<label>Last Name</label>
-						<input type="text" name="lname" value = "<?php echo $row['lname']?>" class="form-control"><br>
-						<label>Age</label>
-						<input type="number" name="age" value = "<?php echo $row['age']?>" class="form-control"><br>
-						<label>Weight</label>
-						<input type="number" name="weight" value = "<?php echo $row['weight']?>" class="form-control"><br>
-						<label>Sex</label>
-						<select name="sex" class="form-control">
-							<option value = Male >Male</option>
-							<option value = Female >Female</option>
-							<option value = Other >Other</option>
-						</select> <br>
-						<!--<input type="text" name="sex" placeholder="* Enter patient's sex" class="form-control"><br>-->
-						<label>Address</label>
-						<input type="text" name="adrs" value = "<?php echo $row['address']?>" class="form-control"><br>
-						<label>Phone NO</label>
-						<input type="text" name="phno" value = "<?php echo $row['phno']?>" class="form-control"><br>
-						<label>Disease</label>
-						<input type="text" name="dse" value = "<?php echo $row['disease']?>" class="form-control"><br>
-						<label>Doctor Appoinment</label>
-						<select name="doctor" class="form-control">
-							<?php display_docs();?>
-						</select><br>
-						<button type="submit" name = "update_data" class="btn btn-outline-primary">Update</button>
+						<label>Doctor ID</label>
+						<input type="text" name="docid" class="form-control" value = "<?php echo $row['docid']?>" readonly><br>
+						<label>Name</label>
+						<input type="text" name="name" class="form-control" value = "<?php echo $row['doc_name']?>"><br>
+						<label>Specialized</label>
+						<input type="text" name="dept" value = "<?php echo $row['dept']?>" class="form-control"><br>
+						<label>fee</label>
+						<input type="number" name="fee" value = "<?php echo $row['fee']?>" class="form-control"><br>
+						<label>Schedule</label>
+						<input type="text" name="time" value = "<?php echo $row['start']?>" class="form-control"><br>
+						<button type="submit" name = "update_doc" class="btn btn-outline-primary">Update</button>
 					</form>
 				</div>
 			</div>
