@@ -8,14 +8,14 @@
 <body>
 	<nav class="navbar sticky-top navbar-light bg-primary">
   <form class="form-inline">
-  	<h3><b><font color="#ffffff" style="padding-left:5px;padding-right:15px;">LIFE FOR HOPE HOSPITAL </font></b></h3>
+    <h3><b><font color="#ffffff" style="padding-left:5px;padding-right:15px;">LIFE FOR HOPE HOSPITAL </font></b></h3>
     <a href="admin-panel.php" class="btn btn-light">Home</a>
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-light">Patient</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staff</a>
+    <a href="doctor_details.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Doctor</a>
+    <a href="admin-panel.php" class="btn btn-light">Staff</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>
@@ -61,7 +61,6 @@
 							<option value = Female >Female</option>
 							<option value = Other >Other</option>
 						</select> <br>
-						<!--<input type="text" name="sex" placeholder="* Enter patient's sex" class="form-control"><br>-->
 						<label>Address</label>
 						<input type="text" name="adrs" placeholder="* Enter patient address" class="form-control" required><br>
 						<label>Phone NO</label>
@@ -70,8 +69,6 @@
 						<input type="text" name="dse" placeholder=" Enter disease" class="form-control" required><br>
 						<label>Doctor Appoinment</label>
 						<select name="doctor" class="form-control">
-							<!--<option value = 1 >Dr Jinnu Rain Siam from 6pm to 8 pm</option>
-							<option value = 2 >Dr Ab. Al Fahad from 4pm to 8 pm</option>-->
 							<?php display_docs();?>
 						</select><br>
 						<button type="submit" name = "app_submit" class="btn btn-outline-primary">Enter Appoinment</button>

@@ -8,14 +8,14 @@
 <body>
 	<nav class="navbar sticky-top navbar-light bg-primary">
   <form class="form-inline">
-  	<h3><b><font color="#ffffff" style="padding-left:5px;padding-right:15px;">LIFE FOR HOPE HOSPITAL </font></b></h3>
+    <h3><b><font color="#ffffff" style="padding-left:5px;padding-right:15px;">LIFE FOR HOPE HOSPITAL </font></b></h3>
     <a href="admin-panel.php" class="btn btn-light">Home</a>
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-light">Patient</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staf</a>
+    <a href="doctor_details.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Doctor</a>
+    <a href="admin-panel.php" class="btn btn-light">Staff</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>

@@ -12,9 +12,9 @@
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-light">Patient</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staf</a>
-    <span style="padding-left:6px;"></span>
     <a href="doctor_details.php" class="btn btn-light">Doctor</a>
+    <span style="padding-left:6px;"></span>
+    <a href="admin-panel.php" class="btn btn-light">Staff</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>
@@ -48,7 +48,7 @@
 					<form class="form-group", action="func.php" method = "post">
 						<label>Name</label>
 						<input type="text" name="name" placeholder="* Enter name" class="form-control" required><br>
-						<label>Specialized</label>
+						<label>Specialized at</label>
 						<input type="text" name="dept" placeholder="* Enter Area of Specialization" class="form-control" required><br>
 						<label>Fee</label>
 						<input type="number" name="fee" placeholder="* Enter fee" class="form-control" required><br>

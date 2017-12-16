@@ -13,9 +13,9 @@
     <span style="padding-left:6px;"></span>
     <a href="patient_details.php" class="btn btn-light">Patient</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staff</a>
+    <a href="doctor_details.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Doctor</a>
+    <a href="admin-panel.php" class="btn btn-light">Staff</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>
@@ -44,7 +44,7 @@
 						<div class="row">
 							<span style="padding-left:230px;"></span>
 							<div class="col-md-6">
-								<input type="text" name="psearch" class="form-control" placeholder="Enter contact number"></div>
+								<input type="text" name="psearch" class="form-control" placeholder="Patient search here"></div>
 						<div class="col-md-2">
 							<input type="submit" name="search" class="btn btn-light" value="Search"></div>
 						</div>
@@ -76,7 +76,8 @@
     {
     	echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
     }
-    $query=$mysqli->query("SELECT * from book_app");
+    $query=$mysqli->query("SELECT pid,fname,lname,age,weight,gender,address,phno,disease,doc_name 
+                          from book_app  natural join doctor;");
     while ($row = $query->fetch_assoc())
     {
     	?>
@@ -89,12 +90,12 @@
 		<td><?php echo $row['address'] ?></td>
 		<td><?php echo $row['phno'] ?></td>
 		<td><?php echo $row['disease'] ?></td>
-		<td><?php echo $row['docid'] ?></td>
+		<td><?php echo $row['doc_name'] ?></td>
 		<td>
-			<a onclick="return confirm('Are you sure')" href= "update.php?edit=<?php echo $row['pid'];?>" class="btn btn-warning"> Update</a>
+			<a onclick="return confirm('Are you sure?')" href= "update.php?edit=<?php echo $row['pid'];?>" class="btn btn-warning"> Update</a>
 		</td>
 		<td>
-			<a href= "patient_details.php?delete=<?php echo $row['pid'];?>" class="btn btn-danger"> Delete</a>
+			<a onclick="return confirm('Are you sure?')" href= "patient_details.php?delete=<?php echo $row['pid'];?>" class="btn btn-danger"> Delete</a>
 		</td>
     </tr>
     <?php }

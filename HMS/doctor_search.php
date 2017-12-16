@@ -1,12 +1,13 @@
 <!DOCTYPE html>
-<?php include("func.php");?>
 <html>
+<head>
+	<title>Search</title>
 <head>
 	<title>Doctor Details</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar sticky-top navbar-light bg-primary">
+  <nav class="navbar sticky-top navbar-light bg-primary">
   <form class="form-inline">
     <h3><b><font color="#ffffff" style="padding-left:5px;padding-right:15px;">LIFE FOR HOPE HOSPITAL </font></b></h3>
     <a href="admin-panel.php" class="btn btn-light">Home</a>
@@ -22,28 +23,14 @@
   </form>
 </nav>
 	<div class="jumbotron" style="background: url('Image/hims.jpg') no-repeat;background-size: cover; height: 300px"></div>
-<hr>
-<a href="add_doctor.php" class="btn btn-outline-info btn-lg btn-block" ><b><i>Add Doctor</i></b></a>
-	<div class= "card">
+<div class= "card">
 		<div class="container-fluid">
 			<div class="card-body" style="background-color: #3498DB; color: #ffffff">
 			<div class="row"> 
-				<!--<div class="col-md-1">
-				<a href="admin-panel.php" class = "btn btn-light">Go Back</a></div>-->
-				<div class="col-md-5"><h3>Doctor Details</h3></div>
-				<div class="col-md-6">
-					<form class = "form-group" action="doctor_search.php" metod = "POST">
-						<div class="row">
-							<div class="col-md-8">
-								<input type="text" name="dsearch" class="form-control" placeholder="Doctor search here"></div>
-						<div class="col-md-2">
-							<input type="submit" name="doc_search" class="btn btn-light" value="Search"></div>
-						</div>
-					</form>
-				</div>
-			</div></div>
-		<div class="card-body" style="background-color: #3498DB; color: #ffffff">
-		<table class="table table-hover">
+				<div class="col-md-3"><h3>Patient Details</h3>
+</div>
+
+<table class="table table-hover">
   <thead>
     <tr>
       <th scope="col">Doctor ID</th>
@@ -57,22 +44,26 @@
   </thead>
   <tbody>
     <tr>
-      <?php   
+    <?php   
     $mysqli =new mysqli("localhost","root","","hospital_msdb");
     if($mysqli->connect_errno)
     {
       echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
     }
-    $query=$mysqli->query("SELECT * from doctor");
+    if(isset($_GET['doc_search']))
+    {
+    $phno = $_GET['dsearch'];
+    $query = "SELECT * FROM doctor ;";
+    }
     while ($row = $query->fetch_assoc())
     {
       ?>
         <td><?php echo $row['docid'] ?></td>
-      <td><?php echo $row['doc_name'] ?></td>
-      <td><?php echo $row['dept'] ?></td>
-      <td><?php echo $row['fee'] ?></td>
-      <td><?php echo $row['start'] ?></td>
-      <td>
+        <td><?php echo $row['doc_name'] ?></td>
+        <td><?php echo $row['dept'] ?></td>
+        <td><?php echo $row['fee'] ?></td>
+        <td><?php echo $row['start'] ?></td>
+        <td>
       <a onclick="return confirm('Are you sure?')" href= "update_doc.php?edit_doc=<?php echo $row['docid'];?>" class="btn btn-warning"> Update</a>
     </td>
     <td>
@@ -105,5 +96,4 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-</body>
-</html>
+</body> </html>
