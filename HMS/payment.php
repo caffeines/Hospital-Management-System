@@ -2,7 +2,7 @@
 
 <html>
 <head>
-	<title>Patient Details</title>
+	<title>Payment</title>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
 </head>
 <body>
@@ -15,7 +15,7 @@
     <span style="padding-left:6px;"></span>
     <a href="doctor_details.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
-    <a href="test.php" class="btn btn-light">Test</a>
+    <a href="patient_search.php" class="btn btn-light">Payment</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>
@@ -46,67 +46,78 @@
     <tr>
       <th scope="col">PID</th>
       <th scope="col">Name</th>
-      <th scope="col">Age</th>
-      <th scope="col">Weight</th>
-      <th scope="col">Sex</th>
-      <th scope="col">Address</th>
       <th scope="col">Contact</th>
       <th scope="col">Disease</th>
       <th scope="col">Doctor</th>
-      <th >Update</th>
-      <th >Delete</th>
+      <th> Bill </th>
+      <th> Status </th>
+      <th> Payment</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-    <?php 	
+    <?php 
+    $id = 0;	
     $mysqli =new mysqli("localhost","root","","hospital_msdb");
+    $con=mysqli_connect("localhost","root","","hospital_msdb");
+    $pd = $_GET['pid'];
     if($mysqli->connect_errno)
     {
     	echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
     }
-    $query=$mysqli->query("SELECT pid,fname,lname,age,weight,gender,address,phno,disease,doc_name 
-                          from book_app  natural join doctor");
-    while ($row = $query->fetch_assoc())
+    
+    $queryqw= "SELECT b.pid,fname,lname,phno,disease,doc_name,status,due
+                          from book_app b join doctor d
+                          on d.docid = b.docid
+                          join bill_n_report r on b.pid = r.pid
+                          WHERE b.pid = $pd";
+    $result = mysqli_query($con,$queryqw);
+    while ($row = mysqli_fetch_array($result))
     {
     	?>
+      <form action="payment.php?pid=<?php echo $row['pid'];?>" method="POST">
+      <?php $id = $row['pid'] ?>
         <td><?php echo $row['pid'] ?></td>
-		<td><?php echo $row['fname'] ?>
-			<?php echo $row['lname'] ?></td>
-		<td><?php echo $row['age'] ?></td>
-		<td><?php echo $row['weight'] ?></td>
-		<td><?php echo $row['gender'] ?></td>
-		<td><?php echo $row['address'] ?></td>
-		<td><?php echo $row['phno'] ?></td>
-		<td><?php echo $row['disease'] ?></td>
-		<td><?php echo $row['doc_name'] ?></td>
-		<td>
-			<a onclick="return confirm('Are you sure?')" href= "update.php?edit=<?php echo $row['pid'];?>" class="btn btn-warning"> Update</a>
-		</td>
-		<td>
-			<a onclick="return confirm('Are you sure?')" href= "patient_details.php?delete=<?php echo $row['pid'];?>" class="btn btn-danger"> Delete</a>
-		</td>
-    </tr>
-    <?php }
-    	if(isset($_GET['delete']) && !empty($_GET['delete']))
-    	{
-    		$delete_id = (int)$_GET['delete'];
-    		$result = $mysqli->query("DELETE FROM book_app
-            		WHERE pid = '$delete_id'");
+  		<td><?php echo $row['fname'] ?>
+  			<?php echo $row['lname'] ?></td>
+  		<td><?php echo $row['phno'] ?></td>
+  		<td><?php echo $row['disease'] ?></td>
+      <td><?php echo $row['doc_name'] ?></td>
+  		<td><?php echo $row['due'] ?></td>
+      <td><?php echo $row['status']?></td>
+      <td><select name="payment" class="form-control">
+                <option value ='Paid'>Paid</option>
+                <option value ='Unpaid'>Unpaid</option>
+      </select></td>
 
-    		if($result)
-    		{
-    			echo "Successful";
-    			echo "<script> window.open('patient_details.php','_self') </script>;"; 
-    		}
-    		else
-    		{
-    			echo "Unsuccessful";
-    		}
-    	}
-    ?>
+    </tr>
+    <?php } ?>
   </tbody>
 </table>
+    <input type="submit" name = "pay" value="Payment" class="btn btn-light">
+</form>
+  <?php 
+  if(isset($_POST['pay']))
+  {
+        $opt = $_POST['payment'];
+        $d = 0;
+        $id = $_POST['pid'];
+        
+        $query = "UPDATE bill_n_report SET due='$d', status='$opt' WHERE pid = '$id'";
+        $r = mysqli_query($con, $query);
+
+        if($r)
+        {
+          echo "<script> alert('Update sucessfull.') </script>";
+          echo "<script> window.open('patient_details.php','_self') </script>;"; 
+        }
+        else
+        {
+          echo "Unsuccessful";
+        }
+      }
+  ?>
+
 </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

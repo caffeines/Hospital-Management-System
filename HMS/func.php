@@ -53,9 +53,9 @@ if(isset($_POST['update_data']))
     $phno = $_POST['phno'];
     $dse = $_POST['dse'];
     $doc = $_POST['doctor'];
+    echo $doc;
 
-
-    $query = "UPDATE book_app SET fname='$fname', lname='$lname', age='$age', weight='$weight', gender='$sex', address='$adrs', phno='$phno', disease='$dse' WHERE pid = '$id'";
+    $query = "UPDATE book_app SET fname='$fname', lname='$lname', age='$age', weight='$weight', gender='$sex', address='$adrs', phno='$phno', disease='$dse', docid='$doc' WHERE pid = '$id'";
     $result = mysqli_query($con, $query);
     
     if($result)
@@ -143,7 +143,7 @@ function display_docs()
     $result = mysqli_query($con,$query);
     while ($row = mysqli_fetch_array($result))
     {
-        echo '<option value="'.$row['docid'].'">'.$row['doc_name'].'</option>';
+        echo '<option value="'.$row['docid'].'">'.$row['docid'].". ".$row['doc_name'].'</option>';
     }
 }
 ?>

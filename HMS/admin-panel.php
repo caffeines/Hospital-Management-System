@@ -15,7 +15,7 @@
     <span style="padding-left:6px;"></span>
     <a href="doctor_details.php" class="btn btn-light">Doctor</a>
     <span style="padding-left:6px;"></span>
-    <a href="admin-panel.php" class="btn btn-light">Staff</a>
+    <a href="test.php" class="btn btn-light">Test</a>
     <span style="padding-left:6px;"></span>
     <a href="index.php" class="btn btn-light">Logout</a>
     <span style="padding-left:6px;"></span>
@@ -73,6 +73,8 @@
 						</select><br>
 						<button type="submit" name = "app_submit" class="btn btn-outline-primary">Enter Appoinment</button>
 					</form>
+				</div>
+				  </div>
 				</div>
 			</div>
 		</div>

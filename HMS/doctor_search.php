@@ -27,7 +27,7 @@
 		<div class="container-fluid">
 			<div class="card-body" style="background-color: #3498DB; color: #ffffff">
 			<div class="row"> 
-				<div class="col-md-3"><h3>Patient Details</h3>
+				<div class="col-md-3"><h3>Doctor Details</h3>
 </div>
 
 <table class="table table-hover">
@@ -45,18 +45,17 @@
   <tbody>
     <tr>
     <?php   
-    $mysqli =new mysqli("localhost","root","","hospital_msdb");
-    if($mysqli->connect_errno)
-    {
-      echo "Connection failed (".$mysqli->connect_errno.") ".$mysqli->connect_errno;
-    }
+    $con=mysqli_connect("localhost","root","","hospital_msdb");
+
     if(isset($_GET['doc_search']))
     {
-    $phno = $_GET['dsearch'];
-    $query = "SELECT * FROM doctor ;";
-    }
-    while ($row = $query->fetch_assoc())
-    {
+      $phno = $_GET['dsearch'];
+      $query = "SELECT * FROM doctor 
+                WHERE doc_name like '%{$phno}%'";
+      $result = mysqli_query($con,$query);
+
+    while ($row = mysqli_fetch_array($result))
+      {
       ?>
         <td><?php echo $row['docid'] ?></td>
         <td><?php echo $row['doc_name'] ?></td>
@@ -71,6 +70,7 @@
     </td>
     </tr>
     <?php }
+  }
       if(isset($_GET['delete_doc']) && !empty($_GET['delete_doc']))
       {
         $d_id = (int)$_GET['delete_doc'];

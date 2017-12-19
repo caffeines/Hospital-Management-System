@@ -35,23 +35,23 @@
     	$phno = $_GET['psearch'];
     	$query = "SELECT pid,fname,lname,age,weight,gender,address,phno,disease,doc_name
                 FROM book_app natural join doctor
-                WHERE fname like '%{$phno}%' OR lname like '%{$phno}%' OR phno like '%{$phno}%'; ";
+                WHERE fname like '%{$phno}%' OR lname like '%{$phno}%' OR phno like '%{$phno}%' ";
     	$result = mysqli_query($con,$query);
     	echo "<hr>
            <div class='card-body' style='background-color: #3498DB; color: #ffffff'>
             <table class='table table-hover'>
               <thead>
                 <tr>
-                  <th> Patient ID</th>
-                  <th> First Name</th>
-                  <th> Last Name</th>
+                  <th> PID</th>
+                  <th> Name</th>
                   <th> Age</th>
                   <th> Weight</th>
                   <th> Sex</th>
-                  <th> Address</th>
                   <th> Contact</th>
                   <th> Disease</th>
                   <th> Doctor</th>
+                  <th> Test </th>
+                  <th> Payment</th>
                   <th> Update</th>
                   <th> Delete </th>
                </tr>
@@ -64,26 +64,30 @@
             $age = $row['age'];
             $weight = $row['weight'];
             $sex = $row['gender'];
-            $adrs = $row['address'];
             $phno = $row['phno'];
             $dse = $row['disease'];
             $doc = $row['doc_name'];
             echo "<tr>
             <td>$pid</td>
-            <td>$fname</td>
-            <td>$lname</td>
+            <td>$fname 
+            $lname</td>
             <td>$age</td>
             <td>$weight</td>
             <td>$sex</td>
-            <td>$adrs</td>
             <td>$phno</td>
             <td>$dse</td>
             <td>$doc</td>";?>
             <td>
-      <a onclick="return confirm('Are you sure?')" href= "update.php?edit=<?php echo $row['pid'];?>" class="btn btn-warning"> Update</a>
+      <a href= "test.php?pid=<?php echo $row['pid'];?>" class="btn btn-dark">Test</a>
     </td>
     <td>
-      <a onclick="return confirm('Are you sure?')" href= "patient_details.php?delete=<?php echo $row['pid'];?>" class="btn btn-danger"> Delete</a>
+      <a href= "payment.php?pid=<?php echo $row['pid'];?>" class="btn btn-success">Payment</a>
+    </td>
+            <td>
+      <a onclick="return confirm('Are you sure?')" href= "update.php?edit=<?php echo $row['pid'];?>" class="btn btn-warning">Update</a>
+    </td>
+    <td>
+      <a onclick="return confirm('Are you sure?')" href= "patient_details.php?delete=<?php echo $row['pid'];?>" class="btn btn-danger">Delete</a>
     </td>
     </tr>
     <?php 
